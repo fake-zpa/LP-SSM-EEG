@@ -9,14 +9,9 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-plt.rcParams.update({
-    'font.size': 13,
-    'axes.titlesize': 15,
-    'axes.labelsize': 13,
-    'xtick.labelsize': 11,
-    'ytick.labelsize': 11,
-    'legend.fontsize': 11,
-})
+plt.rcParams.update({'font.size': 11, 'axes.titlesize': 13,
+                     'axes.labelsize': 11, 'xtick.labelsize': 10,
+                     'ytick.labelsize': 10, 'legend.fontsize': 10})
 
 OUT = Path("paper")
 OUT.mkdir(exist_ok=True)
@@ -69,9 +64,9 @@ ax1.grid(axis="y", alpha=0.25)
 # Divider between primary and LOOCV
 div_x = 2
 ax1.axvline(div_x, color="gray", linestyle=":", linewidth=1.2, alpha=0.5)
-ax1.text(0.5, 1.02, "Primary", fontsize=12, ha="center",
+ax1.text(0.5, 1.02, "Primary", fontsize=11, ha="center",
          transform=ax1.get_xaxis_transform(), color="#555")
-ax1.text(5.5, 1.02, "LOOCV folds", fontsize=12, ha="center",
+ax1.text(5.5, 1.02, "LOOCV folds", fontsize=11, ha="center",
          transform=ax1.get_xaxis_transform(), color="#555")
 
 # ── Right: AUPRC ────────────────────────────────────────────────────
@@ -90,9 +85,9 @@ ax2.spines["right"].set_visible(False)
 ax2.grid(axis="y", alpha=0.25)
 
 ax2.axvline(div_x, color="gray", linestyle=":", linewidth=1.2, alpha=0.5)
-ax2.text(0.5, 1.02, "Primary", fontsize=12, ha="center",
+ax2.text(0.5, 1.02, "Primary", fontsize=11, ha="center",
          transform=ax2.get_xaxis_transform(), color="#555")
-ax2.text(5.5, 1.02, "LOOCV folds", fontsize=12, ha="center",
+ax2.text(5.5, 1.02, "LOOCV folds", fontsize=11, ha="center",
          transform=ax2.get_xaxis_transform(), color="#555")
 
 plt.tight_layout()

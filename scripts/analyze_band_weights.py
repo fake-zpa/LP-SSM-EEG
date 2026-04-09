@@ -298,9 +298,9 @@ def main():
     print("Saved: outputs/metrics/band_analysis.json")
 
     # 5. Generate figure
-    plt.rcParams.update({'font.size': 12, 'axes.titlesize': 13,
-                          'axes.labelsize': 12, 'xtick.labelsize': 11,
-                          'ytick.labelsize': 11, 'legend.fontsize': 10})
+    plt.rcParams.update({'font.size': 11, 'axes.titlesize': 13,
+                          'axes.labelsize': 11, 'xtick.labelsize': 10,
+                          'ytick.labelsize': 10, 'legend.fontsize': 10})
     fig = plt.figure(figsize=(14, 9))
     gs  = gridspec.GridSpec(2, 3, figure=fig, hspace=0.50, wspace=0.40)
 
@@ -319,7 +319,7 @@ def main():
     ax_a.set_xticks(x_pos)
     ax_a.set_xticklabels([f"{b[0].capitalize()}\n({b[1]}-{b[2]} Hz)" for b in BANDS])
     ax_a.set_ylabel("Log Band Power (dB)")
-    ax_a.set_title("(A) Per-Band Power: Ictal vs. Interictal", fontsize=14, fontweight='bold')
+    ax_a.set_title("(A) Per-Band Power: Ictal vs. Interictal", fontsize=13, fontweight='bold')
     ax_a.legend()
     ax_a.grid(axis="y", alpha=0.3)
 
@@ -336,8 +336,8 @@ def main():
         ax_b.axvline(np.mean(ratios_interictal), color="#1f77b4", ls="--", lw=1.5)
     ax_b.set_xlabel("log[(β+θ)/(α+δ)]")
     ax_b.set_ylabel("Density")
-    ax_b.set_title("(B) Ictal Ratio Distribution", fontsize=14, fontweight='bold')
-    ax_b.legend(fontsize=10)
+    ax_b.set_title("(B) Ictal Ratio Distribution", fontsize=13, fontweight='bold')
+    ax_b.legend()
     ax_b.grid(alpha=0.3)
 
     # Panel C: modulator weight distribution
@@ -356,8 +356,8 @@ def main():
                   transform=ax_c.transAxes)
     ax_c.set_xlabel("Modulator Weight")
     ax_c.set_ylabel("Density")
-    ax_c.set_title("(C) Modulator Weight", fontsize=14, fontweight='bold')
-    ax_c.legend(fontsize=10)
+    ax_c.set_title("(C) Modulator Weight", fontsize=13, fontweight='bold')
+    ax_c.legend()
     ax_c.grid(alpha=0.3)
 
     # Panel D: band-head MSE comparison
@@ -371,13 +371,13 @@ def main():
         ax_d.set_xticks(x_pos2)
         ax_d.set_xticklabels([b[0].capitalize() for b in BANDS])
         ax_d.set_ylabel("MSE (norm. pred)")
-        ax_d.set_title("(D) Band-Head Recon MSE", fontsize=14, fontweight='bold')
-        ax_d.legend(fontsize=10)
+        ax_d.set_title("(D) Band-Head Recon MSE", fontsize=13, fontweight='bold')
+        ax_d.legend()
         ax_d.grid(axis="y", alpha=0.3)
     else:
         ax_d.text(0.5, 0.5, "Band-head data\nunavailable", ha="center", va="center",
                   transform=ax_d.transAxes)
-        ax_d.set_title("(D) Band-Head Recon MSE", fontsize=14, fontweight='bold')
+        ax_d.set_title("(D) Band-Head Recon MSE", fontsize=13, fontweight='bold')
 
     # suptitle removed — provided by LaTeX caption
 

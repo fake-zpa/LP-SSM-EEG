@@ -139,6 +139,9 @@ def get_probs(model_name: str, ckpt_path: str, ds) -> np.ndarray | None:
 # ─── Plot ───────────────────────────────────────────────────────────────────
 
 def plot_reliability_diagrams(model_results: dict, out_path: str):
+    plt.rcParams.update({'font.size': 11, 'axes.titlesize': 13,
+                         'axes.labelsize': 11, 'xtick.labelsize': 10,
+                         'ytick.labelsize': 10, 'legend.fontsize': 10})
     n_models = len(model_results)
     fig, axes = plt.subplots(2, 3, figsize=(14, 9))
     axes = axes.flatten()
@@ -164,8 +167,8 @@ def plot_reliability_diagrams(model_results: dict, out_path: str):
         ax.plot([0, 1], [0, 1], "k--", linewidth=1.5, label="Perfect calib.")
         ax.set_xlim(0, 1); ax.set_ylim(0, 1)
         ax.set_xlabel("Confidence"); ax.set_ylabel("Accuracy")
-        ax.set_title(f"{name}", fontsize=10)
-        ax.legend(fontsize=8); ax.grid(alpha=0.3)
+        ax.set_title(f"{name}")
+        ax.legend(); ax.grid(alpha=0.3)
         table_rows.append((name, ece_v, brier_v, res["auroc"]))
 
     # Summary table in last subplot

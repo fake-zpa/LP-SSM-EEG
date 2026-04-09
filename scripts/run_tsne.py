@@ -236,6 +236,9 @@ def main():
     COLORS_LABEL = {0: "#A8C8E8", 1: "#E84040"}   # interictal=blue, ictal=red
     COLORS_SUBJ  = {0: "#4C9BE8", 1: "#E8A040"}   # chb04=blue, chb10=orange
 
+    plt.rcParams.update({'font.size': 11, 'axes.titlesize': 13,
+                         'axes.labelsize': 11, 'xtick.labelsize': 10,
+                         'ytick.labelsize': 10, 'legend.fontsize': 10})
     fig, axes = plt.subplots(2, 2, figsize=(10, 9))
     # suptitle removed — provided by LaTeX caption
 
@@ -253,19 +256,18 @@ def main():
             mask = labels == lbl
             ax.scatter(feats_2d[mask, 0], feats_2d[mask, 1],
                        c=c, s=s, alpha=a, linewidths=0, rasterized=True)
-        ax.set_title(title, fontsize=11, fontweight="bold")
-        ax.set_xlabel("t-SNE 1", fontsize=9)
-        ax.set_ylabel("t-SNE 2", fontsize=9)
-        ax.tick_params(labelsize=7)
+        ax.set_title(title, fontweight="bold")
+        ax.set_xlabel("t-SNE 1")
+        ax.set_ylabel("t-SNE 2")
         if col == 0:
-            ax.set_ylabel("Colored by class\nt-SNE 2", fontsize=9)
+            ax.set_ylabel("Colored by class\nt-SNE 2")
         legend_elems = [
             Line2D([0], [0], marker='o', color='w', markerfacecolor=COLORS_LABEL[1],
                    markersize=7, label='Ictal'),
             Line2D([0], [0], marker='o', color='w', markerfacecolor=COLORS_LABEL[0],
                    markersize=5, label='Interictal', alpha=0.6),
         ]
-        ax.legend(handles=legend_elems, fontsize=8, loc='upper right')
+        ax.legend(handles=legend_elems, loc='upper right')
 
         # Row 1: colored by patient
         ax = axes[1, col]
@@ -275,11 +277,10 @@ def main():
                 continue
             ax.scatter(feats_2d[mask, 0], feats_2d[mask, 1],
                        c=c, s=4, alpha=0.25, linewidths=0, rasterized=True, label=name)
-        ax.set_xlabel("t-SNE 1", fontsize=9)
-        ax.tick_params(labelsize=7)
+        ax.set_xlabel("t-SNE 1")
         if col == 0:
-            ax.set_ylabel("Colored by patient\nt-SNE 2", fontsize=9)
-        ax.legend(fontsize=8, loc='upper right')
+            ax.set_ylabel("Colored by patient\nt-SNE 2")
+        ax.legend(loc='upper right')
 
     plt.tight_layout(rect=[0, 0, 1, 0.97])
     out_path = Path(args.out)

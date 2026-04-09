@@ -11,6 +11,10 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from pathlib import Path
 
+plt.rcParams.update({'font.size': 11, 'axes.titlesize': 13,
+                     'axes.labelsize': 11, 'xtick.labelsize': 10,
+                     'ytick.labelsize': 10, 'legend.fontsize': 10})
+
 OUT = Path("outputs/figures")
 OUT.mkdir(parents=True, exist_ok=True)
 
@@ -47,14 +51,14 @@ for xi, (ma, la) in enumerate(zip(m_aurocs, l_aurocs)):
     top = max(ma, la) + 0.035
     if la > ma:
         ax.text(xi + width/2, top, "★", ha="center", va="bottom",
-                fontsize=10, color="#D65F5F")
+                fontsize=11, color="#D65F5F")
 
 ax.set_xticks(x)
-ax.set_xticklabels(subjects, fontsize=10)
-ax.set_xlabel("Test subject (LOOCV fold)", fontsize=11)
-ax.set_ylabel("AUROC", fontsize=11)
+ax.set_xticklabels(subjects)
+ax.set_xlabel("Test subject (LOOCV fold)")
+ax.set_ylabel("AUROC")
 ax.set_ylim(0.35, 1.05)
-ax.legend(fontsize=9, loc="lower right")
+ax.legend(loc="lower right")
 ax.spines["top"].set_visible(False)
 ax.spines["right"].set_visible(False)
 
@@ -81,20 +85,20 @@ ax.errorbar(N_vals, l_mean, yerr=l_std, fmt="s-", color="#D65F5F",
 
 # Mark crossover at N=3
 ax.axvline(2.5, color="gray", linestyle=":", linewidth=1.2, alpha=0.6)
-ax.text(2.55, 0.38, "N<3:\nLP-SSM\n< Mamba", fontsize=7.5, color="#D65F5F",
+ax.text(2.55, 0.38, "N<3:\nLP-SSM\n< Mamba", fontsize=9, color="#D65F5F",
         style="italic", va="center", alpha=0.8)
-ax.text(3.2, 0.38, "N≥3:\nLP-SSM\n≥ Mamba", fontsize=7.5, color="#D65F5F",
+ax.text(3.2, 0.38, "N≥3:\nLP-SSM\n≥ Mamba", fontsize=9, color="#D65F5F",
         style="italic", va="center", alpha=0.8)
 
 ax.axhline(0.5, color="gray", linestyle=":", linewidth=0.8, alpha=0.4)
 
 ax.set_xticks(N_vals)
-ax.set_xticklabels([f"N={n}" for n in N_vals], fontsize=10)
-ax.set_ylabel("AUROC", fontsize=11)
-ax.set_xlabel("Number of training subjects", fontsize=11)
+ax.set_xticklabels([f"N={n}" for n in N_vals])
+ax.set_ylabel("AUROC")
+ax.set_xlabel("Number of training subjects")
 ax.set_ylim(0.25, 1.0)
 # title removed — provided by LaTeX caption
-ax.legend(fontsize=10)
+ax.legend()
 ax.spines["top"].set_visible(False)
 ax.spines["right"].set_visible(False)
 
