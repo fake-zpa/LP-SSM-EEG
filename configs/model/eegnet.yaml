@@ -1,0 +1,25 @@
+model: eegnet
+name: EEGNet
+
+architecture:
+  in_channels: 23          # number of EEG channels (CHB-MIT)
+  n_classes: 2
+  sfreq: 256
+  window_samples: 1024     # 4s * 256Hz
+
+  F1: 8                    # temporal filters
+  D: 2                     # depth multiplier
+  F2: 16                   # pointwise filters
+  dropout: 0.5
+  kernel_length: 64        # temporal kernel: 250ms at 256Hz
+
+training:
+  optimizer: adam
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+  batch_size: 64
+  max_epochs: 100
+  scheduler: cosine
+
+amp: true
+gradient_checkpointing: false

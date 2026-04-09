@@ -1,0 +1,31 @@
+model: mamba_large
+name: Mamba SSM Large (parameter-matched to LP-SSM-EEG ~4.4M params)
+
+architecture:
+  in_channels: 23
+  n_classes: 2
+  d_model: 288             # increased from 256 → matches LP-SSM 4.40M params
+  d_state: 16
+  d_conv: 4
+  expand: 2
+  n_layers: 8              # increased from 6 → total ~4.41M params
+  dropout: 0.1
+  input_proj: linear
+  pool: mean
+
+training:
+  optimizer: adamw
+  lr: 5.0e-4
+  weight_decay: 1.0e-4
+  batch_size: 32
+  max_epochs: 100
+  scheduler: cosine_warmup
+  warmup_steps: 500
+
+amp: true
+gradient_checkpointing: false
+
+note: >
+  Parameter-matched Mamba baseline: d_model=288, n_layers=8 => 4.41M params,
+  same parameter budget as LP-SSM-EEG (4.40M). Used to control for model
+  capacity in the comparison. Global backpropagation only (no local losses).

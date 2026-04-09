@@ -1,0 +1,54 @@
+seed: 42
+max_epochs: 100
+batch_size: 256
+num_workers: 8
+pin_memory: true
+persistent_workers: true
+prefetch_factor: 4
+
+optimizer:
+  name: adamw
+  lr: 5.0e-4
+  weight_decay: 1.0e-4
+  betas: [0.9, 0.999]
+  eps: 1.0e-8
+
+scheduler:
+  name: cosine_warmup
+  warmup_steps: 50
+  T_max: 100
+  eta_min: 1.0e-6
+
+amp: true                          # mixed precision
+amp_dtype: bfloat16                # RTX 4090 has native bf16 support, more stable than fp16
+gradient_checkpointing: false      # enable if OOM at longer context
+gradient_accumulation_steps: 1     # batch_size=512 is already large enough
+max_grad_norm: 1.0
+local_loss_warmup_epochs: 10   # ramp local loss 0→full over first 10 epochs
+
+context_length:
+  default_sec: 4.0                 # start with 4s (conservative)
+  smoke_sec: 4.0
+  ablation_lengths_sec: [4.0, 8.0, 16.0, 30.0]
+
+memory_budget:
+  peak_vram_gb: 20                 # warning if exceeded
+  oom_fallback_batch_size: 16      # auto-reduce if OOM detected
+
+early_stopping:
+  enabled: true
+  patience: 15
+  monitor: val_auroc
+  mode: max
+  min_delta: 0.001
+
+checkpoint:
+  save_best: true
+  save_last: true
+  monitor: val_auroc
+  mode: max
+
+logging:
+  log_every_n_steps: 10
+  val_every_n_epochs: 1
+  profile_memory: true

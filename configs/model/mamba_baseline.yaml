@@ -1,0 +1,31 @@
+model: mamba_baseline
+name: Mamba SSM Baseline (standard selective SSM, no local plasticity)
+
+architecture:
+  in_channels: 23
+  n_classes: 2
+  d_model: 256             # model dimension
+  d_state: 16              # SSM state dimension
+  d_conv: 4                # local conv width in Mamba block
+  expand: 2                # expansion factor
+  n_layers: 6              # number of Mamba blocks
+  dropout: 0.1
+  input_proj: linear       # how to project EEG channels -> d_model
+  pool: mean               # final pooling: mean | cls | last
+
+training:
+  optimizer: adamw
+  lr: 5.0e-4
+  weight_decay: 1.0e-4
+  batch_size: 32
+  max_epochs: 100
+  scheduler: cosine_warmup
+  warmup_steps: 500
+
+amp: true
+gradient_checkpointing: false
+
+note: >
+  Standard Mamba/selective-SSM baseline. Uses full global backpropagation.
+  This is the direct comparison point for LP-SSM-EEG. Same backbone architecture,
+  different training mechanism.

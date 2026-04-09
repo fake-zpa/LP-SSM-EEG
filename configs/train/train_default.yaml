@@ -1,0 +1,38 @@
+seed: 42
+max_epochs: 100
+batch_size: 64
+num_workers: 4
+pin_memory: true
+
+optimizer:
+  name: adam
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+  betas: [0.9, 0.999]
+
+scheduler:
+  name: cosine
+  T_max: 100
+  eta_min: 1.0e-6
+
+amp: false
+gradient_checkpointing: false
+gradient_accumulation_steps: 1
+max_grad_norm: 1.0
+
+early_stopping:
+  enabled: true
+  patience: 15
+  monitor: val_auroc
+  mode: max
+  min_delta: 0.001
+
+checkpoint:
+  save_best: true
+  save_last: true
+  monitor: val_auroc
+  mode: max
+
+logging:
+  log_every_n_steps: 10
+  val_every_n_epochs: 1

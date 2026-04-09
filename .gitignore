@@ -1,0 +1,27 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+.env
+*.env
+
+# Data and outputs (not tracked)
+data/
+outputs/
+logs/
+
+*.log
+*.ipynb_checkpoints/
+.jupyter/
+
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+.windsurf/
+
+wandb/
+mlruns/

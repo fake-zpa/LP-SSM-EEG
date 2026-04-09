@@ -1,0 +1,35 @@
+batch_size: 64
+num_workers: 4
+amp: true
+
+metrics:
+  classification:
+    - auroc
+    - auprc
+    - f1
+    - sensitivity
+    - specificity
+    - accuracy
+    - balanced_accuracy
+  detection:
+    - event_sensitivity
+    - false_alarms_per_hour
+    - mean_onset_latency_sec
+
+bootstrap_ci:
+  enabled: true
+  n_iterations: 1000
+  confidence: 0.95
+  seed: 42
+
+threshold:
+  method: optimal_f1      # or fixed: 0.5
+  search_on: val
+
+output:
+  save_predictions: true
+  save_probabilities: true
+  save_confusion_matrix: true
+  save_roc_curve: true
+  save_pr_curve: true
+  save_error_analysis: true

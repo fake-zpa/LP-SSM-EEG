@@ -1,0 +1,33 @@
+name: lp_ssm_eeg
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - cudatoolkit=11.8
+  - pip:
+    - torch>=2.1.0
+    - torchvision>=0.16.0
+    - mne>=1.6.0
+    - braindecode>=0.8.0
+    - pyedflib>=0.1.30
+    - numpy>=1.24.0
+    - scipy>=1.11.0
+    - pandas>=2.0.0
+    - scikit-learn>=1.3.0
+    - pywavelets>=1.4.0
+    - pyyaml>=6.0
+    - omegaconf>=2.3.0
+    - tqdm>=4.66.0
+    - tensorboard>=2.15.0
+    - rich>=13.0.0
+    - psutil>=5.9.0
+    - pynvml>=11.5.0
+    - matplotlib>=3.7.0
+    - seaborn>=0.13.0
+    - statsmodels>=0.14.0
+    - requests>=2.31.0
+    - einops>=0.7.0

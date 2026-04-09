@@ -1,0 +1,22 @@
+model: cnn_baseline
+name: 1D CNN Baseline
+
+architecture:
+  in_channels: 23
+  n_classes: 2
+  base_filters: 64
+  n_blocks: 4
+  kernel_size: 7
+  dropout: 0.3
+  pool: adaptive_avg
+
+training:
+  optimizer: adam
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+  batch_size: 64
+  max_epochs: 100
+  scheduler: cosine
+
+amp: true
+gradient_checkpointing: false

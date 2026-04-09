@@ -1,0 +1,30 @@
+project:
+  name: lp_ssm_eeg
+  version: "0.1.0"
+  root: /root/autodl-tmp/medical
+  seed: 42
+  deterministic: true
+
+paths:
+  data_raw: data/raw
+  data_interim: data/interim
+  data_processed: data/processed
+  data_manifests: data/manifests
+  logs: logs
+  outputs: outputs
+  checkpoints: outputs/checkpoints
+  metrics: outputs/metrics
+  figures: outputs/figures
+  tables: outputs/tables
+
+experiment:
+  name: default
+  run_id: null  # auto-generated if null
+  tags: []
+
+logging:
+  level: INFO
+  console: true
+  file: true
+  tensorboard: true
+  flush_every: 50  # steps

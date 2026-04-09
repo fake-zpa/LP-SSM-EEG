@@ -1,0 +1,70 @@
+model: lp_ssm_eeg
+name: LP-SSM-EEG (Local-Plasticity Selective SSM for EEG)
+
+architecture:
+  in_channels: 23
+  n_classes: 2
+  d_model: 256
+  d_state: 16
+  d_conv: 4
+  expand: 2
+  n_layers: 6
+  dropout: 0.1
+  input_proj: linear
+  pool: mean
+
+local_modulator:
+  enabled: true
+  freqband_consistency: true     # innovation: frequency-band consistency bias
+  cross_channel_coherence: true  # innovation: cross-channel spatial coherence bias
+  event_confidence: true         # innovation: local event-confidence uncertainty bias
+  modulator_dim: 64
+
+local_objectives:
+  enabled: true
+  tf_reconstruction:
+    enabled: true
+    weight: 0.1
+    n_fft: 64
+    hop_length: 16
+  temporal_consistency:
+    enabled: true
+    weight: 0.05
+    window_pairs: 2
+  event_aware:
+    enabled: false             # placeholder: enable after main experiments
+    weight: 0.05
+  patient_consistency:
+    enabled: false             # placeholder: cross-patient regularization
+    weight: 0.05
+
+training_mode:
+  mode: local                  # local | global | mixed
+  local_blocks: all            # which blocks use local objectives: all | [0,1,2] | last_half
+  detach_between_blocks: false # if true: full local learning (no cross-block grad)
+  local_loss_weight: 0.15      # total weight of sum of local losses
+  main_loss_weight: 1.0
+
+training:
+  optimizer: adamw
+  lr: 5.0e-4
+  weight_decay: 1.0e-4
+  batch_size: 32
+  max_epochs: 100
+  scheduler: cosine_warmup
+  warmup_steps: 500
+  gradient_accumulation_steps: 1
+
+amp: true
+gradient_checkpointing: false
+
+note: >
+  LP-SSM-EEG: EEG-specific local plasticity training framework built on
+  selective SSM backbone. Key differences from Mamba baseline:
+  (1) EEG-specific local modulator using freq-band/cross-channel/event signals;
+  (2) EEG-specific local denoising objectives (TF reconstruction + temporal consistency);
+  (3) configurable local vs global training mode for ablation.
+  Key differences from original LP-SSM:
+  (1) modulator uses EEG-internal signals, not label embeddings;
+  (2) denoising target is waveform/TF reconstruction, not label-space denoising;
+  (3) designed for multi-channel temporal EEG, not text/generic sequences.
