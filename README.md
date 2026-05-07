@@ -1,6 +1,6 @@
 # LP-SSM-EEG
 
-**Locally-Predictive State Space Models with EEG-Specific Objectives for Cross-Patient Seizure Detection**
+**Per-Block Spectral Supervision Improves Cross-Patient20EEG Seizure Detection Reliability**
 
 Pingan Zhang, Qin Zhou, Jiaqi Chen, Hui Zhang*
 
